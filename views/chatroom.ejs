@@ -53,6 +53,7 @@
 			 chatInput.on('keyup', function(evt) { // arrow function do not create a new this context
 				 evt.preventDefault();
 				 let messageFld = $(this);
+				//  console.log(this);
 				 if(evt.which === 13 && messageFld.val() !== '') {
 					 socket.emit('newMessage', {
 						 roomID,

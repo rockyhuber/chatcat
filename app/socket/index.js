@@ -61,7 +61,7 @@ module.exports = (io, app) => {
       // find the room, to which the socket is connected and purge the user
       let room = h.removeUserFromRoom(allrooms, socket);
       // console.log(room.users);
-      socket.to(room.roomID).emit('updateUsersList', JSON.stringify(room.users));
+      socket.broadcast.to(room.roomID).emit('updateUsersList', JSON.stringify(room.users));
     });
 
     socket.on('newMessage', data => {

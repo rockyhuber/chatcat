@@ -129,7 +129,7 @@ let addUserToRoom = (allrooms, data, socket) => {
       }
       // push user into array
       getRoom.users.push({
-        sockedID: socket.id,
+        socketID: socket.id,
         userID,
         user: data.user,
         userPic: data.userPic
