@@ -1,7 +1,6 @@
 'use strict';
 const h = require('../helpers');
 
-
 module.exports = (io, app) => {
   let allrooms = app.locals.chatrooms;
 

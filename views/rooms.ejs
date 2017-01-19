@@ -9,7 +9,9 @@
 	<script>
 	'use strict';
 	$(() => {
-		let socket = io('<%= host %>' + '/roomslist'); // not a route, known as a socket namespace. attempt to handshake server
+		let socket = io('<%= host %>' + '/roomslist', {
+			transports: ['websocket']
+		}); // not a route, known as a socket namespace. attempt to handshake server
 		// let socket = io();
 		let newRoomInput = $("input[name='roomName']");
 

@@ -6,16 +6,20 @@
 	<link rel="stylesheet" href="/css/chatroomStyles.css">
 	<script src="/js/jquery-2.1.4.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://widget.cloudinary.com/global/all.js"></script>
 	<script>
 	'use strict';
 		 $(() => {
-			 let socket = io('<%= host %>' + '/chatter');
+			 let socket = io('<%= host %>' + '/chatter', {
+				 transports: ['websocket']
+			 });
 			 let roomID = '<%= roomID %>';
 			 let user = '<%= user.fullName %>';
 			 let userPic = '<%= user.profilePic %>';
 			 let chatUsers = $('.chatUsers');
 			 let chatInput = $(".input[name='userInput']");
 			 let chatMessagesDiv = $('.chatMessages');
+			 let filePicker = $('#uploadFile');
 
 			 socket.on('connect', () => {
 				 socket.emit('join', {
@@ -72,6 +76,29 @@
 				 let parsedData = JSON.parse(data);
 				 updateFeed(parsedData.userPic, parsedData.message);
 			 });
+
+			 filePicker.on('click', function() {
+				 cloudinary.openUploadWidget({
+					 cloud_name:"rockyhuber",
+					 upload_preset:"yscyvoa8"
+				 }, (error, result) => {
+					 if(!error) {
+						 let tmp="";
+						 for(let img of result) {
+							 tmp += `<img src="${img.url}">`
+						 }
+						 updateFeed(userPic, tmp);
+
+						 socket.emit('newMessage', {
+							 roomID,
+							 user,
+							 userPic,
+							 message: tmp
+						 });
+					 }
+				 });
+			 });
+
 
 		 });
 	</script>
