@@ -1,10 +1,10 @@
-  'use strict';
+'use strict';
 const express = require('express');
 const app = express();
 const chatCat = require('./app');
 const passport = require('passport');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3002);
 let port = app.get('port');
 // app.set('views', './views')
 app.use(express.static('public'));

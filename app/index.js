@@ -2,6 +2,7 @@
 const router = require('express').Router();
 const redis = require('redis').createClient;
 const adapter = require('socket.io-redis');
+const config = require('./config');
 
 
 // social authentication
@@ -32,7 +33,8 @@ let ioServer = app => {
 
 
   io.use((socket, next) => {
-    require('./session')(socket.request, socket.request.res, next); // {} || socket.request.res
+    require('./session')(socket.request, {}, next); // {} || socket.request.res
+    // require('./session')(socket.request, socket.request.res, next); // {} || socket.request.res
   });
   require('./socket')(io, app);
   return server;
